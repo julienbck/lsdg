@@ -1,0 +1,20 @@
+  {% block body %}
+  {% stylesheets 'bundles/core/css/styles.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+  {% endstylesheets %}
+<div class="content-login">
+
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="error-message flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+</div>
+  {% endblock %}

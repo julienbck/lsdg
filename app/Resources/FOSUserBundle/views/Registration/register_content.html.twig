@@ -1,0 +1,18 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="background-login">
+  <div class="logo-login">
+    {{ render(controller("CoreBundle:Default:menu")) }}
+  </div>
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'loginform'}}) }}
+      <h3 style="margin-bottom: 20px;">INSCRIPTION SITE</h3>
+    {{form_row(form.username)}}
+    {{ form_row(form.email)}}
+    {{form_row(form.plainPassword)}}
+    <div>
+        <button type="submit" value="{{ 'registration.submit'|trans }}"> Inscription </button>
+    </div>
+    <p>Tu as déjà un compte ? <a href="{{ path('fos_user_security_login') }}">
+      {{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+    </a></p>
+{{ form_end(form) }}
+</div>

@@ -1,0 +1,42 @@
+{% extends "ForumBundle::layout_forum.html.twig" %}
+
+{% block forum_wrap %}
+
+  {% for subforum in subforums %}
+    <div class="subforum-wrap">
+      <div class="subforum-title">
+        <h3>{{ subforum.name }}</h3>
+        <p>{{ subforum.description }}</p>
+      </div>
+      <ul class="topic-list">
+        <li>
+          <dl>
+            <dd>Sujets</dd>
+            <dd>Réponses</dd>
+            <dd>Dernier message</dd>
+          </dl>
+        </li>
+      </ul>
+      <div class="button-add-thread">
+        <a href='{{path('forum_new_thread', {'id': subforum.id})}}'>Nouveau Sujet</a><i class="fa-check" style="color:#FFF">+</i>
+      </div>
+      <ul class="thread-list">
+      {% for threads in subforum.thread %}
+        <li>
+          <dl>
+            <dd><a href='{{path('forum_view_thread', {'threadId': threads.id})}}'>{{ threads.title }}</a></br><i>par {{threads.user.username}}</i></dd>
+              {% if threads.post|length == 0 %}
+                <dd>0</dd>
+                {% else %}
+                <dd>{{ threads.post|length - 1}}</dd>
+              {% endif %}
+
+          </dl>
+      {% endfor %}
+      </ul>
+      <div class="button-add-thread">
+        <a href='{{path('forum_new_thread', {'id': subforum.id})}}'>Nouveau Sujet</a><i class="fa-check" style="color:#FFF">+</i>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

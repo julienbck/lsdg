@@ -1,0 +1,77 @@
+{% extends "CoreBundle::layout.html.twig"%}
+
+{% block title%}
+{{ article.title}} - {{ parent()}}
+
+{% endblock %}
+{% block menu %}
+{{ render(controller("CoreBundle:Default:menu")) }}
+{% endblock %}
+{% block slider %}
+  {% include 'FrontBundle:Default:slider.html.twig' with {'backgroundimg': asset(article.image.webPath), 'title': article.title, 'resume': article.content} %}
+{% endblock %}
+
+{% block body %}
+{{ app.request.uri }}
+<div class="view-content">
+<div id="display-article-wrap">
+    <span class="display-article-information">{{ article.author }} - {{ article.date|date('d/m/Y')}}</span>
+    <h4 class="display-article-title">{{article.title}}</h4>
+    <p>{{ article.content | raw }}</p>
+
+    <div class="comments-wrap">
+    {% for comments in comment %}
+
+    {% if currentUser is null %}
+    <div class="comment-content other-message">
+      <i><span style="font-size: 12px">{{ comments.date|date('d/m/Y') }}</span> <span style="color: rgb(59, 162, 189); font-weight: bold">{{ comments.user.username}}</span></i>
+      <hr/>
+      <p>{{ comments.content }}<p>
+    </div>
+
+      {% elseif comments.user.id == currentUser.id %}
+    <div class="comment-content my-message">
+      <i style="  border-bottom: 1px solid #f5f4f4"><span style="font-size: 12px">{{ comments.date|date('d/m/Y') }}</span> <span style="color: rgb(59, 162, 189); font-weight: bold">{{ comments.user.username}}</span></i>
+      <hr/>
+      <p>{{ comments.content }}<p>
+    </div>
+
+      {% else %}
+
+      <div class="comment-content other-message">
+        <i><span style="font-size: 12px">{{ comments.date|date('d/m/Y') }}</span> <span style="color: rgb(59, 162, 189); font-weight: bold">{{ comments.user.username}}</span></i>
+        <hr/>
+        <p>{{ comments.content }}<p>
+    </div>
+      {% endif %}
+    {% endfor %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+      {{ form_start(form) }}
+          {{ form_row(form.content) }}
+          {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}, 'label' : 'envoyer'}) }}
+      {{ form_end(form) }}
+    {% else %}
+      <p>Veuillez vous <a href="{{ path('fos_user_security_login') }}">connecter</a> ou vous <a href="{{ path('fos_user_registration_register') }}">inscrire</a> pour poster un commentaire </p>
+    {% endif %}
+  </div>
+</div>
+    <div class="sidebar-right">
+      <h4>Dernier articles</h4>
+      <div class="box-recent-article">
+        <ul>
+          {% for article in lastArticle %}
+
+            <li class="card-recent-article">
+              <div class="background-card" style="background: url('{{ asset(article.image.webPath) }}');"></div>
+              <span class="information-article">{{ article.author }}    - {{ article.date|date('d/m/Y')}}</span>
+              <h3 class="title-recent-article">{{article.title|truncate(30)}}</h3>
+              <a class="buttonView" href="{{ path('lsdg_blog_view', {'id': article.id}) }}"></a>
+            </li>
+              {% else %}
+              <li>Aucun article pour le moment</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+</div>
+{% endblock %}

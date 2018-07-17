@@ -1,0 +1,10 @@
+{% extends "ForumBundle::layout_forum.html.twig" %}
+
+{% block forum_wrap %}
+
+
+  {{ form_start (form)}}
+
+    {{form_row(form.title, {'label': false})}}
+  {{form_end(form)}}
+{% endblock %}

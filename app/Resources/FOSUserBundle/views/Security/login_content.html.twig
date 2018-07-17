@@ -1,0 +1,28 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="background-login">
+  <div class="logo-login">
+    {{ render(controller("CoreBundle:Default:menu")) }}
+  </div>
+  <form action="{{ path("fos_user_security_check") }}" class="loginform" method="post">
+      {% if csrf_token %}
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+      {% endif %}
+      <h3 style="margin-bottom: 30px;">CONNEXION</h3>
+      {% if error %}
+          <div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
+      <input type="text" id="username" name="_username" placeholder="{{ 'security.login.username'|trans }}" value="{{ last_username }}" required="required" autocomplete="username" />
+
+      <input type="password" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans }}" autocomplete="current-password" />
+
+      <div>
+      <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+      <label for="remember_me" style="font-size: 14px;">{{ 'security.login.remember_me'|trans }}</label>
+    </div>
+      <button type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}">Connexion</button>
+
+      <p>Tu n'as pas encore de compte ? <a href="{{ path('fos_user_registration_register') }}">
+        {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+      </a></p>
+  </form>
+</div>

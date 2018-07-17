@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Le Salon du Geek {% endblock %}</title>
+    {% stylesheets 'bundles/core/css/styles.css' 'bundles/core/css/forum.css' filter='cssrewrite' %}
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+    <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+
+
+
+
+  </head>
+  <body>
+    {% block menu %}
+    {% endblock %}
+    {% block slider%}
+    {% endblock %}
+    <div class="general-container">
+      {% block body %}
+      {% endblock %}
+      <div id="forum-wrap">
+      {% block forum_wrap%}
+      {% endblock %}
+      </div>
+    </div>
+    <!-- {% include "CoreBundle::footer.html.twig" %} -->
+
+  </body>
+
+</html>

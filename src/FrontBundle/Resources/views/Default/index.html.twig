@@ -1,0 +1,60 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+
+{% block title%}
+Accueil - {{ parent()}}
+{% endblock %}
+{% block menu %}
+{{ render(controller("CoreBundle:Default:menu")) }}
+{% endblock %}
+{% block slider %}
+{% include "FrontBundle:Default:slider.html.twig" %}
+{% endblock %}
+
+{% block body %}
+<div id="homepage-blog">
+<div class="last-article">
+  <div class="box-last-article">
+    <div class="title-grid">
+      <h3>Derniers articles</h3>
+    </div>
+    <ul>
+      {% for article in lastArticle %}
+
+        <li class="card-article">
+          <div class="background-card" style="background: url('{{ asset(article.image.webPath) }}');"></div>
+          <span class="information-article">{{ article.author }}    - {{ article.date|date('d/m/Y')}}</span>
+          <h4 class="title-article">{{article.title}}</h4>
+          <a class="buttonView" href="{{ path('lsdg_blog_view', {'id': article.id}) }}"></a>
+        </li>
+          {% else %}
+          <li>Aucun article pour le moment</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+    <div class="box-article">
+      {% for category in categories %}
+      <div class="title-grid">
+        <h3>{{category.name}}</h3>
+      </div>
+      <ul>
+          {% for article in output %}
+            {% for articleDetails in article %}
+            {% if articleDetails.categories[0].id == category.id %}
+              <li class="card-article">
+                <div class="background-card" style="background: url('{{ asset(articleDetails.image.webPath) }}'); background-size: cover;"></div>
+                <span class="information-article">{{ articleDetails.author }} - {{ articleDetails.date|date('d/m/Y')}}</span>
+                <h4 class="title-article">{{articleDetails.title}}</h4>
+                <a class="buttonView" href="{{ path('lsdg_blog_view', {'id': articleDetails.id}) }}"></a>
+              </li>
+              {% endif %}
+            {% endfor %}
+              {% else %}
+              <li>Aucun article pour le moment</li>
+          {% endfor %}
+      </ul>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

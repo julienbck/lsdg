@@ -1,0 +1,11 @@
+{% extends "ForumBundle::layout_forum.html.twig" %}
+
+{% block forum_wrap %}
+
+  {% include "ForumBundle::menu_forum.html.twig" %}
+  {% include "ForumBundle:Forum:slider_forum.html.twig" %}
+
+{{ form_start(form)}}
+{{ form_row(form.content, {'label': false})}}
+{{form_end(form)}}
+{% endblock %}

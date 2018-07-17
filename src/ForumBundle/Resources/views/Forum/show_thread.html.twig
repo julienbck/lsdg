@@ -1,0 +1,16 @@
+{% extends "ForumBundle::layout_forum.html.twig" %}
+
+{% block forum_wrap %}
+
+  {% for thread in threads %}
+      <h2>  {{thread.title}}</h2>
+      {{thread.user.username}}
+      {% for post in thread.post %}
+          <h3>{{post.content | raw}}</h3>
+          {{post.user.username}}
+      {% endfor %}
+  {% endfor %}
+
+    {{form (form)}}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+admin_homepage:
+    path:     /admin/panel
+    defaults: { _controller: AdminBundle:Admin:add }
+
+admin_add_article:
+    path:     /admin/addarticle
+    defaults: { _controller: AdminBundle:Admin:add }
+
+admin_list_article:
+    path:     /admin/listarticle
+    defaults: { _controller: AdminBundle:Admin:listArticle }
+
+admin_edit_article:
+    path:     /admin/edit/{id}
+    defaults: { _controller: AdminBundle:Admin:edit }

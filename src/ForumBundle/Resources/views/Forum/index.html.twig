@@ -1,0 +1,51 @@
+{% extends "ForumBundle::layout_forum.html.twig" %}
+
+{% block forum_wrap %}
+  {% for forum in forums %}
+    <section class="forum-block">
+      <div class="forum-top-header">
+        <div class="forum-top-title">
+          <h3>{{ forum.name }}</h3>
+          <h5>{{forum.description}}</h5>
+        </div>
+        <dl>
+        <dd>Messages</dd>
+        <dd>Sujets</dd>
+        <dd>Dernier message</dd>
+        </dl>
+      </div>
+      <ul class="subforum-block">
+        {% for subforum in forum.subforum %}
+        <div>
+
+          <li class="subforum-item"><a href='{{path('forum_show_subforum', {'id': subforum.id})}}'>{{ subforum.name }}</a></li>
+          <dl>
+            {% set break = 0 %}
+            {% for number in nbThreadsAndPosts if break == 0 %}
+                {% if subforum.id  == number.id%}
+                  <dd>{{number.nbThread}}</dd>
+                  <dd>{{number.nbPost}}</dd>
+                  {% set break = 1 %}
+                {% endif %}
+            {% endfor %}
+            {% if break == 0 %}
+              <dd>Aucun sujets</dd>
+              <dd>Aucun messages</dd>
+            {% endif %}
+
+            {% set break2 = 0 %}
+            {% for lastAuthor in getLastAuthor %}
+              {% for threadWithAuthor in lastAuthor if break2 == 0 %}
+                {% if subforum.id  == threadWithAuthor.subforumId%}
+                  <dd>{{threadWithAuthor.Date|date("d/m/Y H\\hi", "Europe/Paris")}} </br> par {{threadWithAuthor.username}}</dd>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+        </dl>
+        </div>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,18 @@
+
+{% if backgroundimg is defined %}
+  {% if title is defined %}
+    {% if resume is defined %}
+      <div class="main-slider" style=" background: url({{ backgroundimg}})">
+        <div class="paragraph">
+          <h3>{{ title }}</h3>
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+{% else %}
+<div class="main-slider" style="  background: url('/bundles/core/img/background-header.jpg')">
+  <div class="paragraph">
+    <h3>Lorem Ipsum Title</h3>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,49 @@
+<div class="top-header-bar">
+  {% if currentUsername is defined %}
+    <span>Salut {{currentUsername}} !</span>
+    {% else %}
+    <span>Bienvenue à toi ! N'hésites pas à t'inscrire</span>
+  {% endif %}
+
+</div>
+<div class="main-header">
+  <div class="logo">
+    <img src="/bundles/core/img/logo.png"/>
+  </div>
+
+</div>
+<div class="menu" id="menu-fixe">
+    <ul class="first-level-menu">
+      <li><a href="/">Accueil</a></li>
+      <li><a>Catégories</a>
+        <ul class="dropdown-menu">
+            <li><a href="#"> Subitem 1 </a></li>
+            <li><a href="#"> Subitem 2 </a></li>
+            <li><a href="#"> Subitem 3 </a></li>
+            <li><a href="#"> Subitem 4 </a></li>
+            <li><a href="#"> Subitem 5 </a></li>
+            <li><a href="#"> Subitem 6 </a></li>
+
+        </ul>
+      </li>
+      <li><a href="{{ path('forum_homepage')}}">Forum</a></li>
+      {% if is_granted("ROLE_ADMIN") %}
+        <li><a href="{{ path('admin_add_article') }}">Ajouter une annonce</a></li>
+      {% endif %}
+      <li><a href="">Contact</a></li>
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <!-- {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} -->
+        <li>
+          <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+          </a>
+        </li>
+      {% else %}
+        <li>
+          <a href="{{ path('fos_user_security_login') }}">
+            {{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+</div>

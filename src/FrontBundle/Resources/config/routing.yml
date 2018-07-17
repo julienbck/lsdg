@@ -1,0 +1,17 @@
+front_homepage:
+    path:     /
+    defaults: { _controller: FrontBundle:Article:index}
+
+lsdg_blog_view:
+    path:     /article/{id}
+    defaults:
+        _controller: FrontBundle:Article:view
+    requirements:
+        id: \d+
+
+lsdg_blog_category:
+    path:     /category/{id}
+    defaults:
+        _controller: FrontBundle:Article:viewCategory
+    requirements:
+        id: \d+

@@ -1,0 +1,10 @@
+{% for nb in number %}
+  {% if nb.posts == 0 %}
+    <li><a>Pas de message</a></li>
+    {% elseif nb.posts == 1%}
+    <li><a>{{nb.posts}} message</a></li>
+    {% else %}
+    <li><a>{{nb.posts}} messages</a></li>
+  {% endif %}
+
+{% endfor %}

@@ -1,0 +1,21 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block formArticle %}
+
+
+<div class="box-article">
+  <ul>
+    {% for article in articles %}
+      <li  style="width: 250px" class="card-article">
+        <div class="background-card" style="background: url('{{ asset(article.image.webPath) }}'); background-size: cover;"></div>
+        <span class="information-article">{{ article.author }} - {{ article.date|date('d/m/Y')}}</span>
+        <h4 class="title-article">{{article.title|truncate(50)}}</h4>
+        <a class="button green" href="{{ path('admin_edit_article', {'id': article.id}) }}">Edition</a>
+        <a class="button red" href="{{ path('lsdg_blog_view', {'id': article.id}) }}">Supprimer</a>
+      </li>
+        {% else %}
+        <li>Aucun article pour le moment</li>
+    {% endfor %}
+  </ul>
+</div>
+ {% endblock %}

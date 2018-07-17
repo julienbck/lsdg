@@ -1,0 +1,27 @@
+{% extends "CoreBundle::layout.html.twig" %}
+{% block menu %}
+{{ render(controller("CoreBundle:Default:menu")) }}
+{% endblock %}
+{% block slider %}
+{% include "FrontBundle:Default:slider.html.twig" %}
+{% endblock %}
+{% block body %}
+<div class="last-article">
+  <div class="box-last-article">
+    <ul>
+      {% for article in articles %}
+        <li class="card-article">
+          <div class="background-card" style="background: url('{{ asset(article.image.webPath) }}'); background-size: cover;"></div>
+          <span class="information-article">{{ article.author }} - {{ article.date|date('d/m/Y')}}</span>
+          <h4 class="title-article">{{article.title}}</h4>
+
+          <p>{{ article.content|striptags|truncate(150, true)|raw}}</p>
+          <a class="buttonView" href="{{ path('lsdg_blog_view', {'id': article.id}) }}"></a>
+        </li>
+          {% else %}
+          <li>Aucun article pour le moment</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
